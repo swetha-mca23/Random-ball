@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ball container</title>
+
+    <style>
+    #container{
+    padding:80px;
+    border-style: solid;
+    background-color:pink;
+    height:25em;
+    width: 500px;
+}
+    </style>
+
+</head>
+<body>
+    <div id="container">
+    <script>
+        var container1=document.getElementById("container");
+        var palet=["red","blue","orange","yellow","pink"]
+        var balls=[];
+        var x_pos=[];
+        var y_pos=[];
+        var x_vel=[];
+        var y_vel=[];
+        var gravity=1;
+
+
+        function moveball(xpos,ypos,color,xvel,yvel){
+            var ball=document.createElement("div");
+            ball.style.top=xpos+'px';
+            ball.style.left=ypos+'px';
+            ball.style.height= 20 +'px';
+            ball.style.width= 20 +'px';
+            ball.style.borderRadius="50%"
+            ball.style.background=color;
+            ball.style.position="absolute"
+            document.body.appendChild(ball);
+            balls.push(ball);
+            x_pos.push(xpos);
+            y_pos.push(ypos);
+            x_vel.push(xvel);
+            y_vel.push(yvel);
+        }
+    function factory(n){
+    for(let i=0;i<n;i++){
+        let color=palet[Math.floor(Math.random()*5)]
+        var xpos=Math.random()*600;
+        var ypos=Math.random()*500;
+        var xvel=Math.random()*20-10;
+        var yvel=Math.random()*20-10;
+        
+        moveball(xpos,ypos,color,xvel,yvel)
+
+
+    }    
+}
+
+
+
+function update()
+{
+    for(let i=0;i<balls.length;i++)
+    {
+        x_pos[i]=x_pos[i]+x_vel[i];
+        y_pos[i]=y_pos[i]+y_vel[i];
+    if(x_pos[i]<=0|| x_pos[i]>600)
+    {
+        x_vel[i]=-x_vel[i]*gravity;
+    }
+    if(y_pos[i]<=0 || y_pos[i]>500)
+    {
+        y_vel[i]=-y_vel[i]*gravity;
+    }
+    balls[i].style.left=x_pos[i]+'px';
+    balls[i].style.top=y_pos[i]+'px';
+
+    }
+    setTimeout(update,10);
+}
+factory(10);
+update();
+    </script>
+
+
+
+</body>
+</html>
